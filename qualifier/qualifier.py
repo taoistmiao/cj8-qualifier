@@ -10,16 +10,18 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     :return: A table representing the rows passed in.
     """
     table = ""
+    # elements used for border of the table
     frame = "│ ─ ┌ ┬ ┐ ├ ┼ ┤ └ ┴ ┘".split()
-    upper = frame[2:5]
-    middle = frame[5:8]
-    lower = frame[8:]
-    vert = frame[0]
-    hori = frame[1]
-
+    vert = frame[0] # "|"
+    hori = frame[1] # "─"
+    upper = frame[2:5] # "┌, ┬, ┐"
+    middle = frame[5:8] # "├, ┼, ┤"
+    lower = frame[8:] # "└, ┴, ┘"
+    
     rows_num = len(rows)
     cols_num = len(rows[0])
-    # width for each column
+
+    # maximum width for each column including labels if needed
     col_width = []
     for col in range(cols_num):
         max_width = max([len(str(row[col])) for row in rows])
@@ -27,9 +29,11 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
             max_width = max(max_width, len(str(labels[col])))
         col_width.append(max_width)
 
+    # begin constructing table
     # upper border
     table += upper[0]
     for col in range(cols_num):
+        # check the end of the row
         if col != cols_num-1:
             table += hori * (col_width[col]+2) + upper[1]
         else:
@@ -79,4 +83,8 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
 print(make_table(
    rows=[["hello"]],
     centered=True
+))
+
+print(make_table(
+    
 ))
