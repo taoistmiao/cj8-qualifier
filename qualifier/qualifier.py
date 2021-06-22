@@ -22,7 +22,10 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     # width for each column
     col_width = []
     for col in range(cols_num):
-        col_width.append(max(max([len(str(row[col])) for row in rows]), len(labels[col])))
+        max_width = max([len(str(row[col])) for row in rows])
+        if labels:
+            max_width = max(max_width, len(str(labels[col])))
+        col_width.append(max_width)
 
     # upper border
     table += upper[0]
@@ -74,12 +77,6 @@ def make_table(rows: List[List[Any]], labels: Optional[List[Any]] = None, center
     return table
 
 print(make_table(
-   rows=[
-        ["Ducky Yellow", 3],
-        ["Ducky Dave", 12],
-        ["Ducky Tube", 7],
-        ["Ducky Lemon", 1]
-    ],
-    labels=["Name", "Duckiness"],
+   rows=[["hello"]],
     centered=True
 ))
